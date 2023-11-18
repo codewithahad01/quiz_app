@@ -1,27 +1,36 @@
 import Link from 'next/link';
 import React from 'react';
-import { ArrowRight } from 'iconsax-react';
-
+import { edu_tas_beginner } from '@/font';
 
 interface ButtonProps {
   title: string;
-  link?: string; // Making the link parameter optional by using the "?" symbol
+  link?: string;
+  icon?: React.ReactNode; // Optional icon prop accepting JSX icons
 }
 
-const Button: React.FC<ButtonProps> = ({ title, link }) => {
+const Button: React.FC<ButtonProps> = ({ title, link, icon }) => {
   if (link) {
     return (
       <Link href={link}>
-        <div className='button flex justify-center items-center'>
-          {title}
-          <div className='hover:translate-x-3 ease-out delay-100'>
-            <ArrowRight size="24" color="#fff"/>
+        <div className={`${edu_tas_beginner.className} button`}>
+          <div className='relative flex justify-center items-center gap-2'>
+            {title}
+            {icon && (
+              <div className='transform transition-transform hover:translate-x-3'>
+                {icon}
+              </div>
+            )}
           </div>
         </div>
       </Link>
     );
   } else {
-    return <button className='button'>{title}</button>;
+    return (
+      <button className='button'>
+        {title}
+        {icon && <span className=''>{icon}</span>}
+      </button>
+    );
   }
 };
 
